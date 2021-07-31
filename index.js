@@ -197,6 +197,13 @@ async function init () {
             element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.face[playerData.appearance.face - 1].data.name)
         })
 
+        new Hack("hairColorSelector", "hairColor").save((playerData, value) => {
+            const hairColors = window.gamedata.hairColor
+            playerData.appearance.hair.color = hairColors[value].ID
+        }).load_default((playerData, element) => {
+            element.selectedIndex = Array.from(element.options).map(elem => elem.innerHTML).indexOf(window.gamedata.hairColor[playerData.appearance.hair.color - 1].data.name)
+        })
+
         new Hack("currencyTableBody", "currency").save((playerData, value, index) => {
             const currencies = [...window.gamedata.currency]
             currencies.shift()
@@ -370,6 +377,14 @@ async function load_names () {
         option.value = i
         option.innerHTML = faces[i].data.name
         faceSelector.appendChild(option)
+    }
+    const hairColorSelector = document.getElementById("hairColorSelector")
+    const hairColors = window.gamedata.hairColor
+    for (let i = 0; i < hairColors.length; i++) {
+        const option = document.createElement("option")
+        option.value = i
+        option.innerHTML = hairColors[i].data.name
+        hairColorSelector.appendChild(option)
     }
     document.getElementById("editPetLevel").value = playerData.pets[0].level
     const option = document.createElement("option")
