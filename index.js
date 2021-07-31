@@ -208,17 +208,19 @@ async function init () {
             const currencies = [...window.gamedata.currency]
             currencies.shift()
             currencies.forEach(element => {
+                var i1;
                 if (element.ID === index + 2) {
                     element.N = parseInt(value) || 0
                     let isInPlayerData = false
                     for (let i = 0; i < playerData.inventory.currency.length; i++) {
+                       i1 = i
                         if (playerData.inventory.currency[i].ID === element.ID) {
                             isInPlayerData = true
                             break
                         }
                     }
                     if (isInPlayerData) {
-                        playerData.inventory.currency[i].N = value
+                        playerData.inventory.currency[i1].N = value
                     } else {
                         playerData.inventory.currency.push({ ID: element.ID, N: value })
                     }
