@@ -20,7 +20,7 @@ async function login (event) {
         submitButton.className = "fluid ui primary button"
         return popup("Login Error", "Invalid username or password!", "error")
     }
-    window.location.href = "/index.html"
+    window.location.href = "/"
 }
 
 function popup (title, desc, status) {
