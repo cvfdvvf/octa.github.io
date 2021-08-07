@@ -260,7 +260,7 @@ async function load_defaults () {
             "Please complete tutorial before using the dashboard.",
             "error"
         )
-        window.location.href = "/login.html"
+        window.location.href = "/login"
         return
     }
 
@@ -440,7 +440,7 @@ async function save () {
 function logout () {
     eraseCookie("username")
     eraseCookie("password")
-    window.location.href = "/login.html"
+    window.location.href = "/login"
 }
 
 async function getGameData () {
@@ -600,13 +600,13 @@ if (!window.location.href.includes("login")) {
         getCookie("username") === null ||
         getCookie("password") === null
     ) {
-        window.location.href = "/login.html"
+        window.location.href = "/login"
     }
 } else {
     if (
         getCookie("username") !== null ||
         getCookie("password") !== null
     ) {
-        window.location.href = "/index.html"
+        window.location.href = "/"
     }
 }
