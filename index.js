@@ -244,6 +244,7 @@ async function init () {
         await load_defaults()
     } catch (e) {
         await Swal.fire("Load Error", `<pre><code>${e.toString()}</code></pre><br>Try logging in again. If this error is persistent, open an issue on our <a href='https://github.com/hostedposted/Prodigy/issues/new'>GitHub repo</a>!`, "error")
+        console.log(e)
         eraseCookie("username")
         eraseCookie("password")
         window.location.href = "/login.html"
@@ -444,21 +445,20 @@ async function save () {
         saveButton.className = "ui teal button"
         return
     }
-
-    await fetch(
-        "https://prodigy-api.hostedposted.com/player/",
-        {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "content-type": "application/json",
-                accept: "*/*",
-                "accept-language": "en-US,en;q=0.9"
-            },
-            body: JSON.stringify(playerData)
-        }
-    )
-    popup("Success!", "Your changes have been saved!", "success")
+        await fetch(
+            "https://prodigy-api.hostedposted.com/player/",
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "content-type": "application/json",
+                    accept: "*/*",
+                    "accept-language": "en-US,en;q=0.9"
+                },
+                body: JSON.stringify(playerData)
+            }
+        )
+        popup("Success!", "Your changes have been saved!", "success")
     saveButton.className = "ui teal button"
 }
 
@@ -616,9 +616,53 @@ function setAllCurrencies () {
     }
 }
 
+async function getAllItems() {
+    if (!document.getElementById("inventoryNumSelector").value) return popup("Inventory Error", "You must specify how many of each item you want!", "error")
+    const addButton = document.getElementById("getAllItems")
+    addButton.className = "ui teal loading button"
+    const { token } = window.token
+    const playerRequest = await fetch("https://prodigy-api.hostedposted.com/player/", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    const playerData = await playerRequest.json()
+    const ids = ['boots', 'follow', 'fossil', 'hat', 'item', 'key', 'mathTownFrame', 'mathTownInterior', 'mount', 'outfit','spellRelic', 'weapon']
+
+ids.forEach(id => {
+    playerData.inventory[id] = itemify(gamedata[id], document.getElementById("inventoryNumSelector").value)
+});
+gamedata.dorm.forEach(x =>
+    playerData.house.items[x.ID] = {A: [], N: document.getElementById("inventoryNumSelector").value}
+)
+playerData.inventory.mount = itemify(gamedata.mount, document.getElementById("inventoryNumSelector").value);
+console.log(playerData)
+await fetch(
+    "https://prodigy-api.hostedposted.com/player/",
+    {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "content-type": "application/json",
+            accept: "*/*",
+            "accept-language": "en-US,en;q=0.9"
+        },
+        body: JSON.stringify(playerData)
+    }
+)
+popup("Success!", "Set all items!", "success")
+addButton.className = "ui teal button"
+}
+
 function popup (title, desc, status) {
     Swal.fire(title, desc, status)
 }
+
+const itemify = (item, amount) =>
+	item.map(x => ({
+		ID: x.ID,
+		N: amount,
+	})).filter(v => v !== undefined);
 
 if (!window.location.href.includes("login")) {
     if (
