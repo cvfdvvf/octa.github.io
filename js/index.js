@@ -247,7 +247,7 @@ async function init () {
         console.log(e)
         eraseCookie("username")
         eraseCookie("password")
-        window.location.href = "/login.html"
+        window.location.href = "/login"
     }
 }
 
@@ -297,31 +297,6 @@ async function tokenify (username, password) {
     const data = await response.text()
     if (data.startsWith("Internal")) return false
     return JSON.parse(data)
-}
-
-async function login (event) {
-    const submitButton = document.getElementById("submit")
-    event.preventDefault()
-    const username = document.getElementById("username").value
-    const password = document.getElementById("password").value
-    if (!username || !password) {
-        return popup(
-            "Login Error",
-            "Please enter a username and password!",
-            "error"
-        )
-    }
-    submitButton.className = "fluid ui primary loading button"
-    setCookie("username", username, 7)
-    setCookie("password", password, 7)
-    const data = await tokenify(username, password)
-    if (data === false) {
-        eraseCookie("username")
-        eraseCookie("password")
-        submitButton.className = "fluid ui primary button"
-        return popup("Login Error", "Invalid username or password!", "error")
-    }
-    window.location.href = "/index.html"
 }
 
 async function load_names () {
@@ -676,6 +651,6 @@ if (!window.location.href.includes("login")) {
         getCookie("username") !== null ||
         getCookie("password") !== null
     ) {
-        window.location.href = "/index"
+        window.location.href = "/"
     }
 }
