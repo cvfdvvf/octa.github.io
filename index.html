@@ -210,6 +210,18 @@
             <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
 -->
         <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
+            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Inventory Hacks</h3>
+            <div class="ui divider"></div>
+            <div class="ui input" style="background-color: #444444; border: none">
+                <div class="ui bottom attached label" style="text-align: center">Amount</div>
+                <input id="inventoryNumSelector" type="number" min="0"
+                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    placeholder="Ex: 4" style="background-color: #ececec; border: none; margin-top: 4%" />
+            </div>
+            <div class="ui teal button" id="getAllItems" onclick="getAllItems()" style="margin-top: 4%;">Set All Items</div>
+        </div>
+        <div class="ui divider" style="width: 30%; margin: 0 auto;"></div>
+        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
             <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Other Hacks</h3>
             <div class="ui divider"></div>
             <div class="ui input" style="background-color: #444444; border: none">
@@ -230,17 +242,6 @@
                     oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                     placeholder="Ex: 4" style="background-color: #ececec; border: none; margin-top: 4%" />
             </div>
-        </div>
-        <div class="ui centered card" style="background-color: #444444; border: none; padding: 1%">
-            <h3 class="ui center aligned header" style="margin-top: 2%; color: white">Inventory Hacks</h3>
-            <div class="ui divider"></div>
-            <div class="ui input" style="background-color: #444444; border: none">
-                <div class="ui bottom attached label" style="text-align: center">Amount</div>
-                <input id="inventoryNumSelector" type="number" min="0"
-                    oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
-                    placeholder="Ex: 4" style="background-color: #ececec; border: none; margin-top: 4%" />
-            </div>
-            <div class="ui teal button" id="getAllItems" onclick="getAllItems()" style="margin-top: 4%;">Set All Items</div>
         </div>
         <div class="ui teal button" style="position: fixed; bottom: 10px; left: 10px;" onclick="{
             window.open(window.location.protocol + '//' + window.location.host + '/about.html').focus();
