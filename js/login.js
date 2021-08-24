@@ -20,6 +20,12 @@ async function login (event) {
         submitButton.className = "fluid ui primary button"
         return popup("Login Error", "Invalid username or password!", "error")
     }
+    if (data === "BadRequest") {
+        eraseCookie("username")
+        eraseCookie("password")
+        submitButton.className = "fluid ui primary button"
+        return popup("Login Error", "An unexpected error occurred!", "error")
+    }
     window.location.href = "/"
 }
 
@@ -57,6 +63,7 @@ async function tokenify (username, password) {
     )
     const data = await response.text()
     if (data.startsWith("Internal")) return false
+    if (!response.ok) return "BadRequest"
     return JSON.parse(data)
 }
 
