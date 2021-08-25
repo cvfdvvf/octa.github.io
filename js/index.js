@@ -243,6 +243,7 @@ async function init () {
 
         await load_defaults()
     } catch (e) {
+        console.log(e)
         await Swal.fire("Load Error", `<pre><code>${e.toString()}</code></pre><br>Try logging in again. If this error is persistent, open an issue on our <a href='https://github.com/hostedposted/Prodigy/issues/new'>GitHub repo</a>!`, "error")
         console.log(e)
         eraseCookie("username")
