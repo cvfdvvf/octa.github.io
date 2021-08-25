@@ -157,7 +157,7 @@ async function init () {
         new Hack("bountyPointsSelector", "bounty points").save((playerData, value) => {
             playerData.data.bountyScore = parseInt(value) || 0
         }).load_default((playerData, element) => {
-            element.value = playerData.data.bountyScore
+            element.value = playerData.data.bountyScore || 0
         })
 
         new Hack("firstNameSelector", "name").save((playerData, value) => {
