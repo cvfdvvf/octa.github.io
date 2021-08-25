@@ -12,7 +12,7 @@ async function generateAccount() {
             "error"
         )
     }
-    let defaultDataFetch = await (await fetch("http://prodigy-dashboard.hostedposted.com/create/defaultData.json")).json()
+    let defaultDataFetch = await (await fetch("https://prodigy-dashboard.hostedposted.com/create/defaultData.json")).json()
     await fetch(
         "https://prodigy-api.hostedposted.com/player/",
         {
