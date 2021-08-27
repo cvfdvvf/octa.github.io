@@ -343,7 +343,7 @@ async function load_names () {
     }
     const editPetSelector = document.getElementById("editPetSelector")
     const playerPets = playerData.pets
-    for (let i = 0; i < playerPets.length; i++) {
+    for (let i = 0; i < playerPets?.length; i++) {
         const option = document.createElement("option")
         option.value = i
         option.innerHTML = window.gamedata.pet[playerPets[i].ID - 1].data.name
@@ -365,7 +365,7 @@ async function load_names () {
         option.innerHTML = hairColors[i].data.name
         hairColorSelector.appendChild(option)
     }
-    document.getElementById("editPetLevel").value = playerData.pets[0].level
+    if (playerData.pets && playerData.pets[0]) document.getElementById("editPetLevel").value = playerData.pets[0].level
     const option = document.createElement("option")
     option.value = "None"
     option.innerHTML = "None"
