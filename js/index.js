@@ -346,7 +346,7 @@ async function load_names () {
     for (let i = 0; i < playerPets?.length; i++) {
         const option = document.createElement("option")
         option.value = i
-        option.innerHTML = window.gamedata.pet.filter(e => e.ID === playerPets[i].ID)[0].data.name
+        option.innerHTML = window.gamedata.pet.filter(e => e.ID === parseInt(playerPets[i].ID))[0].data.name
         editPetSelector.appendChild(option)
     }
     const faceSelector = document.getElementById("faceSelector")
