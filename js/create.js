@@ -1,18 +1,18 @@
-async function generateAccount() {
-    let genButton = document.getElementById("genButton")
-    let usernameInput = document.getElementById("username")
-    let passwordInput = document.getElementById("password")
+async function generateAccount () {
+    const genButton = document.getElementById("genButton")
+    const usernameInput = document.getElementById("username")
+    const passwordInput = document.getElementById("password")
     genButton.className = "ui teal loading button"
     const [username, password] = await (await fetch("https://prodigyaccountgenerator.hostedposted.repl.co/gen/")).json()
-    let tokenReq = await tokenify(username, password)
-    if (tokenReq == false || tokenReq == "BadRequest") {
+    const tokenReq = await tokenify(username, password)
+    if (tokenReq === false || tokenReq === "BadRequest") {
         await Swal.fire(
             "Account Error",
             "There's an error with account generation right now! Please try again later.",
             "error"
         )
     }
-    let defaultDataFetch = await (await fetch("https://prodigy-dashboard.hostedposted.com/create/defaultData.json")).json()
+    const defaultDataFetch = await (await fetch("https://prodigy-dashboard.hostedposted.com/create/defaultData.json")).json()
     await fetch(
         "https://prodigy-api.hostedposted.com/player/",
         {
@@ -29,7 +29,6 @@ async function generateAccount() {
     usernameInput.value = username
     passwordInput.value = password
     genButton.className = "ui teal button"
-
 }
 
 async function tokenify (username, password) {
